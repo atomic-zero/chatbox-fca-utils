@@ -1,6 +1,6 @@
 {
   "name": "chatbox-fca-utils",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Unofficial FCA for chatbot messenger",
   "scripts": {
     "start": "node index.js"
