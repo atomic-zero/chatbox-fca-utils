@@ -1,13 +1,13 @@
 {
   "name": "chatbox-fca-utils",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Unofficial FCA for chatbot messenger",
   "scripts": {
     "start": "node index.js"
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/atomic-zero/chatbox-fca-utils"
   },
   "keywords": [
     "atomicslashstudio",
@@ -21,6 +21,7 @@
   "author": "Kenneth Panio",
   "license": "MIT",
   "dependencies": {
+    "axios": "^1.6.5",
     "cheerio": "^0.22.0",
     "https-proxy-agent": "^4.0.0",
     "mqtt": "^3.0.0",
