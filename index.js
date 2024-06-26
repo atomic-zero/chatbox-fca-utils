@@ -80,6 +80,21 @@ function setOptions(globalOptions, options) {
   });
 }
 
+function checkNpmVersion() {
+  axios.get('https://registry.npmjs.org/' + packageJSON.name + '/latest')
+    .then(response => {
+      const latestVersion = response.data.version;
+      if (latestVersion !== packageJSON.version) {
+        log.info("version", `Update available: ${latestVersion}. You are using ${packageJSON.version}. Please update by running 'npm install ${packageJSON.name}@latest'.`);
+      } else {
+        log.info("version", `Current NPM Version: ${packageJSON.name}@${packageJSON.version}`);
+      }
+    })
+    .catch(error => {
+      log.error('version', 'Error checking for updates:', error);
+    });
+}
+
 
 function buildAPI(globalOptions, html, jar) {
   var maybeCookie = jar.getCookies("https://www.facebook.com").filter(function (val) {
@@ -95,18 +110,7 @@ function buildAPI(globalOptions, html, jar) {
   }
 
   var userID = maybeCookie[0].cookieString().split("=")[1].toString();
-  axios.get('https://registry.npmjs.org/' + packageJSON.name + '/latest')
-    .then(response => {
-      const latestVersion = response.data.version;
-      if (latestVersion !== packageJSON.version) {
-        log.info("login", `Update available: ${latestVersion}. You are using ${packageJSON.version}. Please update by running 'npm install ${packageJSON.name}@latest'.`);
-      } else {
-        log.info("login", "Current NPM Version: " + packageJSON.name + "@" + packageJSON.version);
-      }
-    })
-    .catch(error => {
-      chat.error('Error checking for updates:', error);
-    });
+  checkNpmVersion();
   log.info("login", `Logged in as ${userID}`);
   log.info("login", "This software utilizes FCA (Facebook Chat API), which was maintained by Kenneth Panio.");
 
