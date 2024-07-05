@@ -34,7 +34,7 @@ module.exports = function (defaultFuncs, api, ctx) {
         return data.id || "Not found";
       } catch (e) {
         log.error('getUID', "Error: " + e.message);
-        throw new Error("Error: " + e.message);
+        throw new Error(e.message);
       }
     }
 
@@ -43,9 +43,28 @@ module.exports = function (defaultFuncs, api, ctx) {
       let Url = new URL(url);
       Form.append('username', Url.pathname.replace(/\//g, ""));
       try {
+        const userAgentArray = [
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3",
+          "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.1 Safari/605.1.15",
+          "Mozilla/5.0 (Linux; Android 10; SM-G977N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.106 Mobile Safari/537.36",
+          "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:54.0) Gecko/20100101 Firefox/54.0",
+          "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.12; rv:45.0) Gecko/20100101 Firefox/45.0",
+          "Mozilla/5.0 (Linux; U; Android 4.4.2; en-us; GT-I9505 Build/KOT49H) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30",
+          "Mozilla/5.0 (iPhone; CPU iPhone OS 14_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.2 Mobile/15E148 Safari/604.1",
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0",
+          "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/601.7.7 (KHTML, like Gecko) Version/9.1.2 Safari/601.7.7",
+          "Mozilla/5.0 (Linux; Android 8.0.0; SM-G960F) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.84 Mobile Safari/537.36",
+          "Mozilla/5.0 (Windows NT 6.3; WOW64; Trident/7.0; rv:11.0) like Gecko",
+          "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/603.3.8 (KHTML, like Gecko) Version/10.1.2 Safari/603.3.8",
+          "Mozilla/5.0 (Linux; Android 7.0; SM-G930F) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.125 Mobile Safari/537.36",
+          "Mozilla/5.0 (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1",
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.3",
+        ];
+        
+        const randomUserAgent = userAgentArray[Math.floor(Math.random() * userAgentArray.length)];
         let { data } = await axios.post('https://api.findids.net/api/get-uid-from-username', Form, {
           headers: {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.79 Safari/537.36',
+            'User-Agent': randomUserAgent,
             ...Form.getHeaders()
           }
         });
@@ -54,7 +73,7 @@ module.exports = function (defaultFuncs, api, ctx) {
         return data.data.id || "Not found";
       } catch (e) {
         log.error('getUID', "Error: " + e.message);
-        throw new Error("Error: " + e.message);
+        throw new Error(e.message);
       }
     }
 
@@ -67,7 +86,7 @@ module.exports = function (defaultFuncs, api, ctx) {
         throw new Error("Unable to retrieve UID");
       } catch (e) {
         log.error('getUID', "Error: " + e.message);
-        throw new Error("Error: " + e.message);
+        throw new Error(e.message);
       }
     }
 
@@ -100,3 +119,4 @@ module.exports = function (defaultFuncs, api, ctx) {
 };
 
 //modified by kenneth panio
+
